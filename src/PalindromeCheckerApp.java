@@ -1,11 +1,11 @@
 import java.util.Scanner;
+import java.util.Stack;
 
 /**
  * =========================================================
- * Use Case 4: Character Array Based Palindrome Check
+ * Use Case 5: Stack Based Palindrome Checker
  * =========================================================
- * Converts string to char array and compares using
- * two-pointer technique.
+ * Uses Stack (LIFO) to reverse characters and compare.
  */
 
 public class PalindromeCheckerApp {
@@ -17,22 +17,21 @@ public class PalindromeCheckerApp {
         System.out.print("Enter a string: ");
         String input = scanner.nextLine();
 
-        // convert string to char array
-        char[] chars = input.toCharArray();
+        Stack<Character> stack = new Stack<>();
 
-        int start = 0;
-        int end = chars.length - 1;
+        // push characters into stack
+        for (char c : input.toCharArray()) {
+            stack.push(c);
+        }
 
         boolean isPalindrome = true;
 
-        // two-pointer comparison
-        while (start < end) {
-            if (chars[start] != chars[end]) {
+        // pop and compare
+        for (char c : input.toCharArray()) {
+            if (c != stack.pop()) {
                 isPalindrome = false;
                 break;
             }
-            start++;
-            end--;
         }
 
         if (isPalindrome) {
