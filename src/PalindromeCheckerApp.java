@@ -1,13 +1,12 @@
 import java.util.Scanner;
-import java.util.Queue;
-import java.util.LinkedList;
-import java.util.Stack;
+import java.util.Deque;
+import java.util.ArrayDeque;
 
 /**
  * =========================================================
- * Use Case 6: Queue + Stack Based Palindrome Check
+ * Use Case 7: Deque Based Optimized Palindrome Checker
  * =========================================================
- * Uses Queue (FIFO) and Stack (LIFO) to validate palindrome.
+ * Uses Deque to compare front and rear characters.
  */
 
 public class PalindromeCheckerApp {
@@ -19,20 +18,18 @@ public class PalindromeCheckerApp {
         System.out.print("Enter a string: ");
         String input = scanner.nextLine();
 
-        Queue<Character> queue = new LinkedList<>();
-        Stack<Character> stack = new Stack<>();
+        Deque<Character> deque = new ArrayDeque<>();
 
-        // insert characters into both queue and stack
+        // add characters to deque
         for (char c : input.toCharArray()) {
-            queue.add(c);
-            stack.push(c);
+            deque.addLast(c);
         }
 
         boolean isPalindrome = true;
 
-        // compare dequeue vs pop
-        while (!queue.isEmpty()) {
-            if (!queue.remove().equals(stack.pop())) {
+        // compare first and last characters
+        while (deque.size() > 1) {
+            if (!deque.removeFirst().equals(deque.removeLast())) {
                 isPalindrome = false;
                 break;
             }
@@ -46,5 +43,4 @@ public class PalindromeCheckerApp {
 
         scanner.close();
     }
-}
 }
