@@ -2,7 +2,14 @@ public class PalindromeCheckerApp {
 
     public static void main(String[] args) {
 
-        System.out.println("Welcome to Palindrome Checker App - UC1");
+        String word = "madam";
+
+        String reversed = new StringBuilder(word).reverse().toString();
+
+        if(word.equals(reversed))
+            System.out.println("Palindrome");
+        else
+            System.out.println("Not Palindrome");
 
     }
 
