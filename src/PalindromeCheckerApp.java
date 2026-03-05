@@ -1,66 +1,42 @@
 import java.util.Scanner;
-import java.util.Stack;
 
-// Strategy Interface
-interface PalindromeStrategy {
-    boolean check(String input);
-}
+public class UseCase13PalindromeCheckerApp {
 
-// Stack Strategy Implementation
-class StackStrategy implements PalindromeStrategy {
+    public static boolean isPalindrome(String input) {
 
-    public boolean check(String input) {
+        int left = 0;
+        int right = input.length() - 1;
 
-        Stack<Character> stack = new Stack<>();
+        while (left < right) {
 
-        // Push characters
-        for (char c : input.toCharArray()) {
-            stack.push(c);
-        }
-
-        // Compare characters
-        for (char c : input.toCharArray()) {
-            if (c != stack.pop()) {
+            if (input.charAt(left) != input.charAt(right)) {
                 return false;
             }
+
+            left++;
+            right--;
         }
 
         return true;
     }
-}
-
-// Context Class
-class PalindromeService {
-
-    private PalindromeStrategy strategy;
-
-    public PalindromeService(PalindromeStrategy strategy) {
-        this.strategy = strategy;
-    }
-
-    public boolean execute(String input) {
-        return strategy.check(input);
-    }
-}
-
-// Main Class
-public class UseCase12PalindromeCheckerApp {
 
     public static void main(String[] args) {
 
         Scanner scanner = new Scanner(System.in);
 
-        System.out.print("Enter a string: ");
+        System.out.print("Input: ");
         String input = scanner.nextLine();
 
-        // Inject strategy
-        PalindromeStrategy strategy = new StackStrategy();
+        long startTime = System.nanoTime();
 
-        PalindromeService service = new PalindromeService(strategy);
+        boolean result = isPalindrome(input);
 
-        boolean result = service.execute(input);
+        long endTime = System.nanoTime();
+
+        long executionTime = endTime - startTime;
 
         System.out.println("Is Palindrome? : " + result);
+        System.out.println("Execution Time : " + executionTime + " ns");
 
         scanner.close();
     }
