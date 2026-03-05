@@ -1,32 +1,50 @@
 import java.util.Scanner;
+import java.util.Stack;
 
-// Palindrome Service Class
-class PalindromeChecker {
+// Strategy Interface
+interface PalindromeStrategy {
+    boolean check(String input);
+}
 
-    // Method to check palindrome
-    public boolean checkPalindrome(String input) {
+// Stack Strategy Implementation
+class StackStrategy implements PalindromeStrategy {
 
-        String normalized = input.replaceAll("\\s+", "").toLowerCase();
+    public boolean check(String input) {
 
-        int left = 0;
-        int right = normalized.length() - 1;
+        Stack<Character> stack = new Stack<>();
 
-        while (left < right) {
+        // Push characters
+        for (char c : input.toCharArray()) {
+            stack.push(c);
+        }
 
-            if (normalized.charAt(left) != normalized.charAt(right)) {
+        // Compare characters
+        for (char c : input.toCharArray()) {
+            if (c != stack.pop()) {
                 return false;
             }
-
-            left++;
-            right--;
         }
 
         return true;
     }
 }
 
-// Main Application Class
-public class UseCase11PalindromeCheckerApp {
+// Context Class
+class PalindromeService {
+
+    private PalindromeStrategy strategy;
+
+    public PalindromeService(PalindromeStrategy strategy) {
+        this.strategy = strategy;
+    }
+
+    public boolean execute(String input) {
+        return strategy.check(input);
+    }
+}
+
+// Main Class
+public class UseCase12PalindromeCheckerApp {
 
     public static void main(String[] args) {
 
@@ -35,9 +53,12 @@ public class UseCase11PalindromeCheckerApp {
         System.out.print("Enter a string: ");
         String input = scanner.nextLine();
 
-        PalindromeChecker checker = new PalindromeChecker();
+        // Inject strategy
+        PalindromeStrategy strategy = new StackStrategy();
 
-        boolean result = checker.checkPalindrome(input);
+        PalindromeService service = new PalindromeService(strategy);
+
+        boolean result = service.execute(input);
 
         System.out.println("Is Palindrome? : " + result);
 
