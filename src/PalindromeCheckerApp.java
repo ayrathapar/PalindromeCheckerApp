@@ -1,14 +1,17 @@
 import java.util.Scanner;
-import java.util.LinkedList;
-
-/**
- * =========================================================
- * Use Case 8: Linked List Based Palindrome Checker
- * =========================================================
- * Uses LinkedList to compare first and last characters.
- */
 
 public class PalindromeCheckerApp {
+
+    private static boolean check(String s, int start, int end) {
+
+        if (start >= end)
+            return true;
+
+        if (s.charAt(start) != s.charAt(end))
+            return false;
+
+        return check(s, start + 1, end - 1);
+    }
 
     public static void main(String[] args) {
 
@@ -17,28 +20,9 @@ public class PalindromeCheckerApp {
         System.out.print("Enter a string: ");
         String input = scanner.nextLine();
 
-        LinkedList<Character> list = new LinkedList<>();
+        boolean result = check(input, 0, input.length() - 1);
 
-        // add characters to linked list
-        for (char c : input.toCharArray()) {
-            list.add(c);
-        }
-
-        boolean isPalindrome = true;
-
-        // compare first and last elements
-        while (list.size() > 1) {
-            if (!list.removeFirst().equals(list.removeLast())) {
-                isPalindrome = false;
-                break;
-            }
-        }
-
-        if (isPalindrome) {
-            System.out.println("Result: Palindrome");
-        } else {
-            System.out.println("Result: Not Palindrome");
-        }
+        System.out.println("Is Palindrome? : " + result);
 
         scanner.close();
     }
