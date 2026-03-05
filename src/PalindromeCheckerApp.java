@@ -1,45 +1,33 @@
-import java.util.Scanner;
-import java.util.Deque;
-import java.util.ArrayDeque;
-
-/**
- * =========================================================
- * Use Case 7: Deque Based Optimized Palindrome Checker
- * =========================================================
- * Uses Deque to compare front and rear characters.
- */
+import java.util.*;
 
 public class PalindromeCheckerApp {
 
     public static void main(String[] args) {
 
         Scanner scanner = new Scanner(System.in);
-
         System.out.print("Enter a string: ");
+
         String input = scanner.nextLine();
 
-        Deque<Character> deque = new ArrayDeque<>();
+        LinkedList<Character> list = new LinkedList<>();
 
-        // add characters to deque
-        for (char c : input.toCharArray()) {
-            deque.addLast(c);
+        for(char c : input.toCharArray()) {
+            list.add(c);
         }
 
         boolean isPalindrome = true;
 
-        // compare first and last characters
-        while (deque.size() > 1) {
-            if (!deque.removeFirst().equals(deque.removeLast())) {
+        while(list.size() > 1) {
+            if(!list.removeFirst().equals(list.removeLast())) {
                 isPalindrome = false;
                 break;
             }
         }
 
-        if (isPalindrome) {
+        if(isPalindrome)
             System.out.println("Result: Palindrome");
-        } else {
+        else
             System.out.println("Result: Not Palindrome");
-        }
 
         scanner.close();
     }
